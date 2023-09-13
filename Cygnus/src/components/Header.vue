@@ -27,7 +27,7 @@
 }
 
 .navbar a:hover {
-  background-color: #555; /* or any hover color you prefer */
+  background-color: #1ed5d2; /* or any hover color you prefer */
 }
 
 </style>
