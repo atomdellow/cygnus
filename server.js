@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const contactRoutes = require('./routes/contactRoutes');
+const ContactMessage = require('./models/contact');
 const app = express();
-
+//app.use('/', contactRoutes);  // Use the routes from contactRoutes.js
 const mongoURI = 'mongodb://127.0.0.1:27017/gamestudio'; // Replace with your MongoDB URI
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
 // mongoose.connect('mongodb://localhost:27017/gameStudio', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const connectDB = async () => {
@@ -34,7 +37,7 @@ const BoxingSchema = new mongoose.Schema({
   }
 });
 
-// Create the model based on the schema
+// Create the model based on the Boxer schema
 const Boxer = mongoose.model('Boxer', BoxingSchema);
 
 app.use(cors());
@@ -63,6 +66,36 @@ app.get('/leaderboard', async (req, res) => {
     res.status(200).json(boxers);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// const contactSchema = new mongoose.Schema({
+//   email: String,
+//   name: String,
+//   message: String,
+//   date: { type: Date, default: Date.now }
+// });
+
+// const Contact = mongoose.model('Contact', contactSchema);
+
+app.post('/contact', async (req, res) => {
+  try {
+    const { email, name, message } = req.body;
+
+    // Create a new message
+    const contactMessage = new ContactMessage({
+      email,
+      name,
+      message
+    });
+
+    // Save the message to the database
+    await contactMessage.save();
+
+    res.status(201).json({ message: 'Message sent successfully!' });
+  } catch (error) {
+    console.error("Error saving the message:", error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

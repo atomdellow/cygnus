@@ -1,19 +1,21 @@
 <template>
-  <section>
-    <h1>Welcome to Cygnus Studio</h1>
-    <!-- More content -->
-  </section>
+    <Carousel />
+    <News />
+    <Gallery />
+    <WorldProject />
+    <Blog />
+    <Contact />
 </template>
-<style>
-.homepage {
-  flex-grow: 1; /* Allow it to take up all available space */
-  display: flex;
-  justify-content: center; /* Horizontally center */
-  align-items: center; /* Vertically center */
-}
-</style>
 <script>
+import Carousel from '../components/Carousel.vue'
+import News from '../components/News.vue'
+import Gallery from '../components/Gallery.vue'
+import Tutorials from '../components/Tutorials.vue'
+import WorldProject from '../components/WorldProject.vue'
+import Blog from '../components/Blog.vue'
+import Contact from '../components/Contact.vue'
 export default {
-  name: 'HomePage'
-}
+  components: { Carousel, News, Gallery, Tutorials, WorldProject, Blog, Contact },
+  name: 'HomePage',
+  }
 </script>
